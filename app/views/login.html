@@ -1,0 +1,25 @@
+<div class="container" ng-controller="AuthController">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5">
+      <h1>Autenticação</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5">
+
+      <form ng-submit="login()">
+        <label for="email" class="form-label">E-mail:</label>
+        <input type="email" class="form-control" ng-model="username" required><br>
+
+        <label for="senha" class="form-label">Senha:</label>
+        <input type="password" class="form-control" ng-model="password" required><br>
+
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </form>
+
+      <div ng-if="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+</div>

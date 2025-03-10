@@ -1,0 +1,57 @@
+<div ng-include="'app/views/layout.html'"></div>
+<div class="clients-container container">
+  <div class="col-md-12 mt-5">
+    <h2>Lista de Clientes</h2>
+
+    <!-- Exibir erro, se houver -->
+    <div ng-if="errorMessage" class="alert alert-danger">
+      <strong>Erro!</strong> {{ errorMessage }}
+    </div>
+
+    <button ng-click="exportToExcel()" class="btn btn-success">Exportar para Excel</button>
+    <button ng-click="printClients()" class="btn btn-secondary">Imprimir</button>
+
+    <form ng-submit="addClient(newClient)" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="text" ng-model="newClient.nome" class="form-control mt-5" placeholder="Nome do Cliente" required />
+      </div>
+      <div class="mb-3">
+        <input type="text" ng-model="newClient.cnpj" class="form-control mt-3 mb-3" placeholder="CNPJ" required />
+      </div>
+      <div class="mb-3">
+        <input class="form-control" type="file" id="file" ng-model="newClient.logo" accept="image/*" required>
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Adicionar Cliente</button>
+      </div>
+    </form>
+
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">CNPJ</th>
+          <th scope="col">Logo</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="client in clientes">
+          <th scope="row">{{client.id}}</th>
+          <td>{{client.nome}}</td>
+          <td>{{client.cnpj}}</td>
+          <td>
+            <!-- Exibindo a imagem -->
+            <img ng-if="client.logo" ng-src="/backend/uploads/{{client.logo}}" alt="Logo" width="50" height="50" />
+            <!-- Se não houver logo, exibe um ícone ou texto alternativo -->
+            <span ng-if="!client.logo">Sem Logo</span>
+          </td>
+          <td>
+            <button ng-click="deleteClient(client.id)" class="btn btn-danger">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
